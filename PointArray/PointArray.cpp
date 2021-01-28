@@ -54,12 +54,15 @@ void PointArray::push_back(const Point &p) {
 }
 ///////////////////////////////////////////
 void PointArray::insert(const int pos, const Point &p){
-    Point *tmp = new Point[size+1];
+    if(pos > size){
+        return;}
+
+    Point *tmp = new Point[size+1];     
     size++;
     int contador = 0;
-    for(int i = 0; i < size-1; i++) {
+    for(int i = 0; i < size; i++) {
         if(pos != i){
-            tmp[i+contador] = data[i];
+            tmp[i] = data[i-contador];
         }
         else if(pos == i){
             tmp[i] = p;
@@ -76,14 +79,14 @@ void PointArray::remove(const int pos){
     Point *tmp = new Point[size-1];
     size--;
     int contador = 0;
-    for(int i = 0; i < size-1; i++) {
+    for(int i = 0; i < size+1; i++) {
         if(pos != i){
-            tmp[i+contador] = data[i];
+            tmp[i-contador] = data[i];
         }
         else if(pos == i){
             contador++;
             }
-  
+        std::cout<<"Iteracion: "<<i<<std::endl;
     }
     delete[] data;
     data = tmp;  
